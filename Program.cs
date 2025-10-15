@@ -5,6 +5,16 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+app.UseWebSockets();
+app.Map("/poll", async context =>
+{
+    if (context.WebSockets.IsWebSocketRequest)
+    {
+        var webSocket = await context.WebSockets.AcceptWebSocketAsync();
+        // Handle WebSocket messages (e.g., receive votes, broadcast results)
+    }
+});
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
