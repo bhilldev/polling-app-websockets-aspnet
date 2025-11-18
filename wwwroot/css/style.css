@@ -1,0 +1,15 @@
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { font-size: 100%; }
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  background: #0d1117;
+  color: #c9d1d9;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.choice {
+
+}
