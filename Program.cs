@@ -8,7 +8,7 @@ var app = builder.Build();
 /* ----------------------------
    Static files (HTML/CSS/JS)
 -----------------------------*/
-app.UseDefaultFiles();   // loads index.html automatically
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 /* ----------------------------
@@ -19,7 +19,7 @@ app.UseWebSockets();
 // Track connected clients
 var sockets = new ConcurrentBag<WebSocket>();
 
-// Track poll counts
+// Track poll counts (authoritative state)
 var choiceCounts = new ConcurrentDictionary<string, int>();
 
 app.Map("/poll", async context =>
@@ -49,13 +49,19 @@ app.Map("/poll", async context =>
         {
             var choice = message.Split(':')[1];
 
-            // Increment counter safely
+            // Increment per-choice count
             choiceCounts.AddOrUpdate(choice, 1, (_, count) => count + 1);
 
-            // Build response payload: "1:3,2:5,3:2"
-            var payload = string.Join(",",
-                choiceCounts.Select(kvp => $"{kvp.Key}:{kvp.Value}")
-            );
+            // ✅ Calculate total votes from authoritative state
+            var totalVotes = choiceCounts.Values.Sum();
+
+            // Build payload
+            // Example: "total:10|1:3,2:5,3:2"
+            var payload =
+                $"total:{totalVotes}|" +
+                string.Join(",",
+                    choiceCounts.Select(kvp => $"{kvp.Key}:{kvp.Value}")
+                );
 
             var bytes = Encoding.UTF8.GetBytes(payload);
 
