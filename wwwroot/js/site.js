@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 "use strict";
+
 const socket = new WebSocket("ws://" + location.host + "/poll");
 
 document.querySelectorAll(".choice").forEach((el, index) => {
@@ -12,13 +13,24 @@ document.querySelectorAll(".choice").forEach((el, index) => {
 });
 
 socket.onmessage = (event) => {
-  const results = event.data.split(",");
+  // Split total from choice data
+  const [totalPart, choicesPart] = event.data.split("|");
+
+  // totalPart => "total:10"
+  const totalVotes = Number(totalPart.split(":")[1]);
+
+  // choicesPart => "1:3,2:5,3:2"
+  const results = choicesPart.split(",");
 
   results.forEach(r => {
     const [choice, count] = r.split(":");
     const el = document.querySelector(`.choice[data-choice="${choice}"]`);
+
     if (el) {
-      el.textContent = `Choice ${choice}: ${count}`;
+      el.textContent = `Choice ${choice}: ${count} / ${totalVotes}`;
+
+      // later: use totalVotes to set progress bar width
+      // const percent = (count / totalVotes) * 100;
     }
   });
 };
