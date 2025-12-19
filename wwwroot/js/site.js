@@ -15,6 +15,8 @@ document.querySelectorAll('input[type="radio"][name="poll"]').forEach(input => {
 });
 
 socket.onmessage = (event) => {
+  console.log("RAW WS DATA:", event.data);
+  // ... your existing parsing logic ...
   // Split total from choice data
   const [totalPart, choicesPart] = event.data.split("|");
 
