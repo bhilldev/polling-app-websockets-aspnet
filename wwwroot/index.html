@@ -2,33 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My ASP.NET Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Poll</title>
+
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <form class="choices">
-  <label class="choice" data-choice="1">
-    <input type="radio" name="poll" value="1" />
-    <span class="radio"></span>
-    <span class="label">Choice 1</span>
-    <span class="count"></span>
-  </label>
 
-  <label class="choice" data-choice="2">
-    <input type="radio" name="poll" value="2" />
-    <span class="radio"></span>
-    <span class="label">Choice 2</span>
-    <span class="count"></span>
-  </label>
+  <main class="main">
+    <label class="choice" data-choice="1">
+      <div class="left">
+        <input type="radio" name="poll" value="1" />
+        <span class="label">Choice 1</span>
+      </div>
+      <span class="count">0 votes</span>
+    </label>
 
-  <label class="choice" data-choice="3">
-    <input type="radio" name="poll" value="3" />
-    <span class="radio"></span>
-    <span class="label">Choice 3</span>
-    <span class="count"></span>
-  </label>
-</form>
+    <label class="choice" data-choice="2">
+      <div class="left">
+        <input type="radio" name="poll" value="2" />
+        <span class="label">Choice 2</span>
+      </div>
+      <span class="count">0 votes</span>
+    </label>
 
- </body>
+    <label class="choice" data-choice="3">
+      <div class="left">
+        <input type="radio" name="poll" value="3" />
+        <span class="label">Choice 3</span>
+      </div>
+      <span class="count">0 votes</span>
+    </label>
+  </main>
+
+  <script src="/js/site.js"></script>
+</body>
 </html>

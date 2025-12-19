@@ -1,4 +1,9 @@
-*, *::before, *::after {
+
+/* ---------- Reset ---------- */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -7,38 +12,85 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
+/* ---------- Base ---------- */
 body {
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   background: #0d1117;
   color: #c9d1d9;
-
-  display: flex;
-  flex-direction: column;
-
-  /* responsive inset instead of margin */
-  padding: clamp(1rem, 6vw, 140px);
-
-  /* spacing between choices */
-  gap: clamp(1rem, 3vh, 2rem);
-
-  /* critical */
-  overflow: hidden;
 }
 
+/* ---------- Layout ---------- */
+.main {
+  height: 100vh;
+  padding: clamp(2rem, 6vw, 140px);
+  display: grid;
+  gap: clamp(1.25rem, 3vh, 2.5rem);
+}
+
+/* ---------- Choice Card ---------- */
 .choice {
-  flex: 1;               /* equal height */
+  width: 100%;
   background: #161b22;
-  border-radius: 16px;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+
   padding: clamp(1rem, 2vw, 2rem);
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+  cursor: pointer;
+  transition: background 0.2s ease,
+              border-color 0.2s ease,
+              transform 0.15s ease;
 }
+
+.choice:hover {
+  background: #1f2678;
+  border-color: #58a678;
+  transform: translateY(-2px);
+}
+
+/* ---------- Left side (radio + label) ---------- */
+.choice .left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ---------- Radio ---------- */
+.choice input[type="radio"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: #58a6ff;
+}
+
+/* ---------- Label ---------- */
+.choice .label {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 500;
+}
+
+/* ---------- Vote Count ---------- */
+.choice .count {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .choice {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
