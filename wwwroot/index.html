@@ -5,36 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Live Poll</title>
 
+  <!-- Your main stylesheet -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 
-  <main class="main">
+  <main class="poll">
+
+    <h1 class="poll-title">Live Poll</h1>
+
+    <!-- Choice 1 -->
     <label class="choice" data-choice="1">
-      <div class="left">
-        <input type="radio" name="poll" value="1" />
-        <span class="label">Choice 1</span>
+      <div class="choice-header">
+        <div class="left">
+          <input type="radio" name="poll" value="1" />
+          <span class="label">Choice 1</span>
+        </div>
+        <span class="count">0 votes</span>
       </div>
-      <span class="count">0 votes</span>
+
+      <div class="progress-container">
+        <div class="progress-fill"></div>
+      </div>
     </label>
 
+    <!-- Choice 2 -->
     <label class="choice" data-choice="2">
-      <div class="left">
-        <input type="radio" name="poll" value="2" />
-        <span class="label">Choice 2</span>
+      <div class="choice-header">
+        <div class="left">
+          <input type="radio" name="poll" value="2" />
+          <span class="label">Choice 2</span>
+        </div>
+        <span class="count">0 votes</span>
       </div>
-      <span class="count">0 votes</span>
+
+      <div class="progress-container">
+        <div class="progress-fill"></div>
+      </div>
     </label>
 
+    <!-- Choice 3 -->
     <label class="choice" data-choice="3">
-      <div class="left">
-        <input type="radio" name="poll" value="3" />
-        <span class="label">Choice 3</span>
+      <div class="choice-header">
+        <div class="left">
+          <input type="radio" name="poll" value="3" />
+          <span class="label">Choice 3</span>
+        </div>
+        <span class="count">0 votes</span>
       </div>
-      <span class="count">0 votes</span>
+
+      <div class="progress-container">
+        <div class="progress-fill"></div>
+      </div>
     </label>
+
   </main>
 
+  <!-- Your JS -->
   <script src="/js/site.js"></script>
 </body>
 </html>

@@ -4,35 +4,38 @@
 // Write your JavaScript code.
 const socket = new WebSocket("ws://" + location.host + "/poll");
 
-// Shared state
-let totalVotes = 0;
+const choices = document.querySelectorAll(".choice");
 
-// Listen for radio selection changes
-document.querySelectorAll('input[type="radio"][name="poll"]').forEach(input => {
-  input.addEventListener("change", () => {
-    socket.send(`choice:${input.value}`);
+choices.forEach(choice => {
+  const radio = choice.querySelector('input[type="radio"]');
+
+  radio.addEventListener("change", () => {
+    socket.send(`choice:${radio.value}`);
   });
 });
 
 socket.onmessage = (event) => {
-  console.log("RAW WS DATA:", event.data);
-  // ... your existing parsing logic ...
-  // Split total from choice data
+  // Format: total:10|1:4,2:3,3:3
   const [totalPart, choicesPart] = event.data.split("|");
 
-  totalVotes = Number(totalPart.split(":")[1]);
-
+  const totalVotes = Number(totalPart.split(":")[1]);
   const results = choicesPart.split(",");
 
   results.forEach(r => {
-    const [choice, count] = r.split(":");
+    const [choiceId, countStr] = r.split(":");
+    const count = Number(countStr);
 
-    const el = document.querySelector(
-      `.choice[data-choice="${choice}"] .count`
-    );
+    const el = document.querySelector(`.choice[data-choice="${choiceId}"]`);
+    if (!el) return;
 
-    if (el) {
-      el.textContent = `${count} votes`;
-    }
+    // Update text
+    el.querySelector(".count").textContent =
+      `${count} vote${count === 1 ? "" : "s"}`;
+
+    // Update progress bar
+    const fill = el.querySelector(".progress-fill");
+    const percent = totalVotes === 0 ? 0 : (count / totalVotes) * 100;
+    fill.style.width = `${percent}%`;
   });
 };
+
